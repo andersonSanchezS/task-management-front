@@ -6,8 +6,9 @@ import { useFetch } from '../../../shared/hooks/useFetch'
 import { AuthService } from '../../../shared/services/auth'
 import { LoginV } from './Login'
 // notifications
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+import { Toast } from '../../../shared/utils/toast'
 
 export const LoginC: FC = () => {
     // Hooks
@@ -23,30 +24,13 @@ export const LoginC: FC = () => {
             console.log('cargando')
         }
         if (errLogin) {
-                    toast.error('Usuario y/o contraseña invalidos', {
-                        position: 'bottom-right',
-                        autoClose: 5000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined
-                    })
+            Toast('Usuario y/o contraseña incorrectos', 'error')
             console.log('error', errLogin)
         }
         if (dataLogin !== undefined) {
         localStorage.setItem('refresh_token', dataLogin?.refresh)
         localStorage.setItem('access_token', dataLogin?.access)
-        console.log('dataLogin', dataLogin)
-        toast.success('Bienvenido', {
-            position: 'bottom-right',
-            autoClose: 2000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined
-        })
+        Toast('Bienvenido', 'success')
     }
     }, [dataLogin, errLogin, loadLogin])
 
